@@ -1,4 +1,5 @@
-package qq_image_watch_mac
+package main
+
 
 import (
 	"fmt"
@@ -34,7 +35,6 @@ var data = ImagePage{
 	Images: [] Image{
 	},
 }
-
 func main() {
 	tmpl := template.Must(template.ParseFiles("./template/index.html"))
 
@@ -47,7 +47,7 @@ func main() {
 	w := Watch{
 		watch: watch,
 	}
-	var watchDirPath = "/Users/xxxx/Library/Containers/com.tencent.qq/Data/Library/Caches/Images"
+	var watchDirPath = "/Users/xxx/Library/Containers/com.tencent.qq/Data/Library/Caches/Images"
 	w.watchDir(watchDirPath);
 	http.Handle("/html/", http.StripPrefix("/html/", http.FileServer(http.Dir(watchDirPath))))
 	files, _ := ioutil.ReadDir(watchDirPath)
