@@ -29,7 +29,6 @@ func main() {
 	var watchDirPath = "/Users/zhangjianxin/Library/Containers/com.tencent.qq/Data/Library/Caches/Images"
 	w.watchDir(watchDirPath);
 	http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir(watchDirPath))))
-	http.HandleFunc("/watcher",watcher)
 	r.HandleFunc("/random/{args}", random)
 	files, _ := ioutil.ReadDir(watchDirPath)
 	for _, f := range files {
@@ -37,15 +36,6 @@ func main() {
 	}
 	http.Handle("/", r)
 	http.ListenAndServe(":8000", nil)
-}
-
-func watcher(w http.ResponseWriter, r *http.Request) {
-	for {
-		select {
-		default:
-			w.Write([]byte("64 bytes or fewer"));
-		}
-	}
 }
 
 func random(w http.ResponseWriter, r *http.Request) {
